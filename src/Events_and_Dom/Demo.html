@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOM Manipulation Demo</title>
+  <style>
+    .highlight {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">Hello World!</h1>
+  <p class="message">This is a paragraph.</p>
+  <button id="btn">Click Me</button>
+
+  <script>
+    const heading = document.getElementById("title");
+    const button = document.getElementById("btn");
+
+    // Change text & style on button click
+    button.addEventListener("click", () => {
+      heading.textContent = "You clicked the button!";
+      heading.classList.toggle("highlight");
+      
+      // Add new element
+      const newPara = document.createElement("p");
+      newPara.textContent = "Paragraph added dynamically!";
+      document.body.appendChild(newPara);
+    });
+  </script>
+</body>
+</html>
