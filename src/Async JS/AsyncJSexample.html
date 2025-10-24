@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Callback vs Promise vs Async Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 30px;
+    }
+    h2 { color: #333; }
+    button {
+      margin: 10px 0;
+      padding: 8px 16px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .output {
+      margin-top: 10px;
+      background: white;
+      border-radius: 6px;
+      padding: 10px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript Async Examples</h1>
+
+  <!-- Callback Example -->
+  <div class="section">
+    <h2>1️⃣ Using Callback</h2>
+    <button onclick="runCallback()">Run Callback Example</button>
+    <div id="callbackOutput" class="output"></div>
+  </div>
+
+  <!-- Promise Example -->
+  <div class="section">
+    <h2>2️⃣ Using Promise</h2>
+    <button onclick="runPromise()">Run Promise Example</button>
+    <div id="promiseOutput" class="output"></div>
+  </div>
+
+  <!-- Async/Await Example -->
+  <div class="section">
+    <h2>3️⃣ Using Async / Await</h2>
+    <button onclick="runAsync()">Run Async/Await Example</button>
+    <div id="asyncOutput" class="output"></div>
+  </div>
+
+  <script>
+    // -----------------------------
+    // 1️⃣ CALLBACK EXAMPLE
+    // -----------------------------
+    function getUserDataCallback(callback) {
+      document.getElementById("callbackOutput").innerText = "Fetching user data...";
+      setTimeout(() => {
+        const user = { name: "Jitendra (Callback)", age: 30 };
+        callback(user);
+      }, 2000);
+    }
+
+    function runCallback() {
+      getUserDataCallback((user) => {
+        document.getElementById("callbackOutput").innerText = `User fetched: ${user.name}`;
+      });
+    }
+
+    // -----------------------------
+    // 2️⃣ PROMISE EXAMPLE
+    // -----------------------------
+    function getUserDataPromise() {
+      return new Promise((resolve, reject) => {
+        document.getElementById("promiseOutput").innerText = "Fetching user data...";
+        setTimeout(() => {
+          const success = true;
+          if (success) {
+            resolve({ name: "Jitendra (Promise)", age: 30 });
+          } else {
+            reject("Error fetching data");
+          }
+        }, 2000);
+      });
+    }
+
+    function runPromise() {
+      getUserDataPromise()
+        .then(user => {
+          document.getElementById("promiseOutput").innerText = `User fetched: ${user.name}`;
+        })
+        .catch(error => {
+          document.getElementById("promiseOutput").innerText = error;
+        });
+    }
+
+    // -----------------------------
+    // 3️⃣ ASYNC / AWAIT EXAMPLE
+    // -----------------------------
+    function getUserDataAsync() {
+      return new Promise((resolve) => {
+        document.getElementById("asyncOutput").innerText = "Fetching user data...";
+        setTimeout(() => {
+          resolve({ name: "Jitendra (Async/Await)", age: 30 });
+        }, 2000);
+      });
+    }
+
+    async function runAsync() {
+      try {
+        const user = await getUserDataAsync();
+        document.getElementById("asyncOutput").innerText = `User fetched: ${user.name}`;
+      } catch (error) {
+        document.getElementById("asyncOutput").innerText = error;
+      }
+    }
+  </script>
+
+</body>
+</html>
